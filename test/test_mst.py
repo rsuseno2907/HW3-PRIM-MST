@@ -1,6 +1,6 @@
 import pytest
 import numpy as np
-from mst import Graph
+from mst.graph import Graph
 from sklearn.metrics import pairwise_distances
 
 
@@ -35,6 +35,14 @@ def check_mst(adj_mat: np.ndarray,
             total += mst[i, j]
     assert approx_equal(total, expected_weight), 'Proposed MST has incorrect expected weight'
 
+    # More assertions
+    # MST should always have |V|-1 edges
+    edge_count = 0
+    mst[mst != 0] = 1 #turn all non-zero values to 1 to get a count of edges
+    for i in range(mst.shape[0]):
+        for j in range(i+1):
+            edge_count += mst[i,j]
+    assert edge_count == mst.shape[0]-1
 
 def test_mst_small():
     """
@@ -71,4 +79,5 @@ def test_mst_student():
     TODO: Write at least one unit test for MST construction.
     
     """
+    
     pass

@@ -41,4 +41,55 @@ class Graph:
         `heapify`, `heappop`, and `heappush` functions.
 
         """
-        self.mst = None
+        S = set() # list of visited nodes
+        T = [] # the actual tree
+        s = 0
+        S.add(s)
+
+        # Create a priority queue
+        pq = []
+        for v, w in enumerate(self.adj_mat[s]):
+            if w>0: # skip disconnected vertex
+                heapq.heappush(pq, (w, s, v)) # push the weight, the node, and the vertex to pq
+        # print(pq)
+
+        while pq:
+            # print(pq)
+            w, u, v = heapq.heappop(pq) # from the given priority queue, 
+                                        # can use heappop to find the one with lowest weight
+            if v in S: # skip loop if node is already visited
+                # print('meow',pq)
+                continue
+            
+            
+            #now actually update the Tree and update S with node that's been visited
+            S.add(v)
+            T.append((u,v,w))
+            # print(T)
+
+            # This step updates the priority queue based on the updated nodes that are in S
+            for next_v, next_w in enumerate(self.adj_mat[v]):
+                heapq.heappush(pq, (next_w, v, next_v)) 
+                # print(next_v,next_w)
+            # print(pq)
+            # break
+        
+        # Turn the tree (T) into an adjacency matrix
+        # print(self.adj_mat)
+        # print(T)
+        mst_mat = np.zeros((len(self.adj_mat), len(self.adj_mat)))
+        for t in T: 
+            # t[0] is node 1, t[1] is node 2, and t[2] is the weight
+            mst_mat[t[0],t[1]]=t[2]
+            mst_mat[t[1],t[0]]=t[2]
+        # print(mst_mat)
+        self.mst = mst_mat
+
+
+# graph_object = Graph('../data/small.csv')
+# graph_object.construct_mst()
+# # print(graph_object.mst)
+# tmp = graph_object.mst
+# print(tmp)
+# tmp[:] = 1
+# print(tmp)
