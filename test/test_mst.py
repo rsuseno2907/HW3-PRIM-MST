@@ -75,9 +75,12 @@ def test_mst_single_cell_data():
 
 def test_mst_student():
     """
-    
-    TODO: Write at least one unit test for MST construction.
-    
+    On an edge case where there are two disconnected graphs, it should return the 'first' MST
+    So we can assert whether the number of nodes of the input graph is greater than the MST
     """
-    
-    pass
+    file_path = './data/disconnected.csv'
+    g = Graph(file_path)
+    g.construct_mst()
+    nodecount_adj = np.sum(np.any(g.adj_mat > 0, axis=1)) # total of 8 nodes
+    nodecount_mst = np.sum(np.any(g.mst > 0, axis=1)) # total of 5 nodes
+    assert nodecount_adj > nodecount_mst # number of node in the original matrix should be greater than its mst

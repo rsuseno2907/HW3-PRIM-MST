@@ -69,7 +69,8 @@ class Graph:
 
             # This step updates the priority queue based on the updated nodes that are in S
             for next_v, next_w in enumerate(self.adj_mat[v]):
-                heapq.heappush(pq, (next_w, v, next_v)) 
+                if next_w > 0 and next_v not in S:
+                    heapq.heappush(pq, (next_w, v, next_v)) 
                 # print(next_v,next_w)
             # print(pq)
             # break
