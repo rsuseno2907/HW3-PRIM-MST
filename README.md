@@ -1,3 +1,5 @@
+[![BuildStatus](https://github.com/rsuseno2907/HW3-PRIM-MST/workflows/HW3-PRIM-MST/badge.svg?event=push)](https://github.com/rsuseno2907/HW3-PRIM-MST/actions)
+
 # Minimum Spanning Tree (Prim's Algorithm)
 This repository is written for HW3 of the BMI203 Algorithms class assignment during Winter quarter of 2026.
 
